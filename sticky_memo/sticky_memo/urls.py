@@ -14,12 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path    
 from . import views
 from memo import views as memo_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('myhome/', views.myhome),
-    path('memo/', memo_views.get_all_memo)
+    path('memo/', memo_views.get_all_memo, name="memo_list"),
+    path('', views.index, name="main"),
+    path('memo/<int:id>/', memo_views.get_memo, name='memo_detail'),
+    path('memo/create/', memo_views.create_memo, name="memo_create"),
+    path('memo/update/<int:id>/', memo_views.update_memo, name='memo_update'),
+    path('memo/delete/<int:id>/', memo_views.delete_memo, name='memo_delete'),
 ]
